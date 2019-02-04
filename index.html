@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>WEB RECEIPT</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body onload="displayDate();">
+	<div id="head">
+		
+		<div id="content">
+			<div id="big"><h1>WEB RECEIPT</h1></div>
+			<!-- <div id="output"><p>0</p></div> -->
+			<div id="form">
+				<p id="display-date-time">dd/mm/yyyy</p>
+				<div id="main">
+					<h3>Enter Customer's Information</h3>
+					<input type="text" id="fname" placeholder="First name" onkeyup="lettersOnly(this)">
+					<input type="text" id="lname" placeholder="Last name" onkeyup="lettersOnly(this)"><br>
+
+					<select id="sex">
+					    <option value="male">Male</option>
+					    <option value="female">Female</option>
+					 </select><br><br>
+					 <!--  -->
+					<select id="item" onchange="getSelectedValue();" name="sel-item">
+					    <option value="JAMB">JAMB form + CBT fee </option>
+					    <option value="CBT">CBT charge Only</option>
+					 </select>
+
+					<!-- <input type="text" id="quant" placeholder="Quantity"> -->
+					<select id="price" name="sel-price">
+					    <option value="3500">N3500</option>
+					    <option value="700">N700</option>
+					 </select>
+				</div>
+
+				<div id="btn">
+						<button id="reset" onclick="document.location='';">Reset</button>
+						<button id="print" onclick="#">Print Receipt</button>
+				</div>
+				<p>-0-</p>
+				</form>
+			</div>
+
+		</div>
+			
+	</div>
+
+	<script type="text/javascript">
+
+		function displayDate(){
+
+			//Date 
+			var mydate = new Date();
+			var year = mydate.getYear();
+				if(year < 1000){  
+					year += 1900;
+				}
+			var day = mydate.getDay();
+			var month = mydate.getMonth();
+			var daym = mydate.getDate();
+			var dayarray = new Array("Sunday, ","Monday, ","Tuesday, ","Wednesday, ","Thursday, ","Friday, ","Saturday, ",);
+			var montharray = new Array("January", "Febuary","March","April","May","June","July","August","September","October","November","December");
+			//Date Ends here
+
+			//Time 
+			var currentTime = new Date();
+			var h = currentTime.getHours();
+			var m = currentTime.getMinutes();
+			var s = currentTime.getSeconds();
+				if(h == 24){
+					h = 0;
+				}else if(h > 12){
+					h = h - 0;
+				}
+
+				if(h < 10){
+					h = "0" + h;
+				}
+
+				if(m < 10){
+					m = "0" + m;
+				}
+
+				if(s < 10){
+					s = "0" + s;
+				}
+
+
+				var myClock = document.getElementById("display-date-time");
+				myClock.textContent = "" + dayarray[day]+ " " +daym+ " " +montharray[month]+ " " +year+ " | " +h+ ":" +m+ ":" +s;
+				myClock.innerText = "" + dayarray[day]+ " " +daym+ " " + montharray[month]+ " " +year+ " | " +h+ ":" +m+ ":" +s;
+
+				setTimeout("displayDate()", 1000);
+		}
+
+		displayDate();
+		
+
+		function lettersOnly(input) {
+			var regex = /[^a-z]/gi;
+			input.value = input.value.replace(regex, "");
+		};
+
+
+		function getSelectedValue(){
+			var selectedItem = document.getElementById("item").value;
+			console.log(selectedItem);
+
+			var selectedPrice = document.getElementById("price").value;
+			console.log(selectedPrice);
+
+
+			// item.addEventlistener("click", function(){
+			// if( li == 2){
+			// 	alert("JAMB FORM");
+			// }
+			// });
+		};
+
+
+
+		// function get_output() {
+		// 	var name = document.getElementById("fname");
+		// 	var item = document.getElementById("item");
+		// 	var price = document.getElementById("price");
+
+			
+			
+		// 	alert(name,item,price);
+		// };
+
+		// document.getElementById("submit").onclick = get_input;
+
+		/*function get_input() {
+			var salary = parseInt(document.getElementById("salary").value);
+			var percent = parseInt(document.getElementById("percent").value);
+			var years = parseInt(document.getElementById("years").value);
+
+			if(isNaN(salary), isNaN(percent), isNaN(years)){
+				document.addEventlistener(click, alert(please enter your values into the boxes));
+			}
+			else{
+				var calc = salary * percent * (years *12)
+				var calc = calc/100
+
+				document.getElementById("output").innerHTML = calc;
+			}
+
+		};*/
+
+	</script>
+	
+</body>
+</html>
